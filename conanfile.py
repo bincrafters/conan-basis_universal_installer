@@ -25,7 +25,7 @@ class BasisUnivesalConan(ConanFile):
     def source(self):
         sha256 = "1f56512265bd45f5fe40707e68a344537dfc5938890df564adb3e7aad5072bba"
         tools.get("{0}/archive/v{1}.tar.gz".format(self.homepage, self.version), sha256=sha256)
-        extracted_dir = self.name + "-" + self.version
+        extracted_dir = "basis_universal-" + self.version
         os.rename(extracted_dir, self._source_subfolder)
 
     def _configure_cmake(self):
