@@ -14,7 +14,7 @@ class BasisUnivesalConan(ConanFile):
     author = "Bincrafters <bincrafters@gmail.com>"
     license = "Apache-2.0"
     exports = ["LICENSE.md"]
-    exports_sources = ["CMakeLists.txt"]
+    exports_sources = ["CMakeLists.txt", "0001-build.patch"]
     generators = "cmake"
     settings = "os_build", "arch_build", "compiler"
 
@@ -35,6 +35,7 @@ class BasisUnivesalConan(ConanFile):
         return cmake
 
     def build(self):
+        tools.patch(base_path=self._source_subfolder, patch_file="0001-build.patch")
         cmake = self._configure_cmake()
         cmake.build()
 

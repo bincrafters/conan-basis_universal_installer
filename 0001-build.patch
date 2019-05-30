@@ -1,0 +1,84 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 62d4a41..2e5d204 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,10 +1,8 @@
++cmake_minimum_required(VERSION 3.0)
+ project(basisu)
+ 
+-cmake_minimum_required(VERSION 3.0)
+-option(BUILD_X64 "build 64-bit" TRUE)
+ option(STATIC "static linking" FALSE)
+ 
+-message("Initial BUILD_X64=${BUILD_X64}")
+ message("Initial CMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}")
+ 
+ if( NOT CMAKE_BUILD_TYPE )
+@@ -13,30 +11,20 @@ endif( NOT CMAKE_BUILD_TYPE )
+ 
+ message( ${PROJECT_NAME} " build type: " ${CMAKE_BUILD_TYPE} )
+ 
+-if (BUILD_X64)
+-	message("Building 64-bit")
+-else()
+-	message("Building 32-bit")
+-endif(BUILD_X64)
+-
+-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g")
+-set(CMAKE_C_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g")
++set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG}")
++set(CMAKE_C_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG}")
+ 
+ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}")
+ set(CMAKE_C_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}")
+ 
+-set(CMAKE_CXX_FLAGS -std=c++11)
+-set(GCC_COMPILE_FLAGS "-fvisibility=hidden -fvisibility-inlines-hidden -fPIC -fopenmp -fno-strict-aliasing -D_LARGEFILE64_SOURCE=1 -D_FILE_OFFSET_BITS=64 -Wall -Wextra -Wno-unused-local-typedefs -Wno-unused-value -Wno-unused-parameter -Wno-unused-but-set-variable -Wno-unused-variable -Wno-reorder")
+-
+-if (NOT BUILD_X64)
+-	set(GCC_COMPILE_FLAGS "${GCC_COMPILE_FLAGS} -m32")
++set(GCC_COMPILE_FLAGS "${GCC_COMPILE_FLAGS}")
++if(UNIX AND NOT APPLE)
++	set(GCC_COMPILE_FLAGS "${GCC_COMPILE_FLAGS} -fvisibility=hidden -fvisibility-inlines-hidden -fPIC -fopenmp -fno-strict-aliasing -D_LARGEFILE64_SOURCE=1 -D_FILE_OFFSET_BITS=64 -Wall -Wextra -Wno-unused-local-typedefs -Wno-unused-value -Wno-unused-parameter -Wno-unused-but-set-variable -Wno-unused-variable -Wno-reorder")
+ endif()
+ 
+-if (STATIC)
++if (STATIC AND UNIX AND NOT APPLE)
+ 	set(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} ${GCC_LINK_FLAGS} -static-libgcc -static-libstdc++ -static")
+-else()
+-	set(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} ${GCC_LINK_FLAGS} -Wl,-rpath .")
+-endif(STATIC)
++endif()
+ 
+ set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} ${GCC_COMPILE_FLAGS}")
+ set(CMAKE_C_FLAGS_RELEASE  "${CMAKE_C_FLAGS_RELEASE} ${GCC_COMPILE_FLAGS}")
+@@ -46,7 +34,7 @@ set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${GCC_COMPILE_FLAGS}")
+ set(CMAKE_CXX_FLAGS_RELEASE  "${CMAKE_CXX_FLAGS_RELEASE} ${GCC_COMPILE_FLAGS}")
+ set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} ${GCC_COMPILE_FLAGS} -D_DEBUG")
+ 
+-set(BASISU_SRC_LIST ${COMMON_SRC_LIST} 
++set(BASISU_SRC_LIST ${COMMON_SRC_LIST}
+ 	basisu_backend.cpp
+ 	basisu_basis_file.cpp
+ 	basisu_comp.cpp
+@@ -65,7 +53,7 @@ set(BASISU_SRC_LIST ${COMMON_SRC_LIST}
+ 	)
+ 
+ if (APPLE)
+-	set(BIN_DIRECTORY "bin_osx")
++	set(BIN_DIRECTORY "bin")
+ else()
+     set(BIN_DIRECTORY "bin")
+ endif()
+@@ -73,7 +61,10 @@ endif()
+ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/${BIN_DIRECTORY})
+ 
+ add_executable(basisu ${BASISU_SRC_LIST})
+-target_link_libraries(basisu m pthread)
++if(UNIX AND NOT APPLE)
++	target_link_libraries(basisu m pthread)
++endif()
++set_target_properties(basisu PROPERTIES CXX_STANDARD 11)
+ 
+ install(TARGETS basisu DESTINATION bin)
+ 
