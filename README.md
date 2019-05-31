@@ -2,7 +2,7 @@
 
 | Bintray | Windows | Linux & macOS |
 |:--------:|:---------:|:-----------------:|
-|[![Download](https://api.bintray.com/packages/bincrafters/public-conan/basis_universal%3Abincrafters/images/download.svg) ](https://bintray.com/bincrafters/public-conan/basis_universal%3Abincrafters/_latestVersion)|[![Build status](https://ci.appveyor.com/api/projects/status/github/bincrafters/conan-basis_universal?svg=true)](https://ci.appveyor.com/project/bincrafters/conan-basis_universal)|[![Build Status](https://travis-ci.com/bincrafters/conan-basis_universal.svg)](https://travis-ci.com/bincrafters/conan-basis_universal)|
+|[![Download](https://api.bintray.com/packages/bincrafters/public-conan/basis_universal_installer%3Abincrafters/images/download.svg) ](https://bintray.com/bincrafters/public-conan/basis_universal_installer%3Abincrafters/_latestVersion)|[![Build status](https://ci.appveyor.com/api/projects/status/github/bincrafters/conan-basis_universal_installer?svg=true)](https://ci.appveyor.com/project/bincrafters/conan-basis_universal_installer)|[![Build Status](https://travis-ci.com/bincrafters/conan-basis_universal_installer.svg)](https://travis-ci.com/bincrafters/conan-basis_universal_installer)|
 
 ## Conan Information
 
