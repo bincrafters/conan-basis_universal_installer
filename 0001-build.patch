@@ -1,5 +1,5 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 62d4a41..8870c11 100644
+index 62d4a41..7e89f52 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -1,10 +1,8 @@
@@ -73,7 +73,7 @@ index 62d4a41..8870c11 100644
 -
 -install(TARGETS basisu DESTINATION bin)
 +if(UNIX AND NOT APPLE)
-+	target_link_libraries(basisu m pthread)
++	target_link_libraries(basisu m pthread gomp)
 +endif()
 +set_target_properties(basisu PROPERTIES CXX_STANDARD 11)
 +if (CMAKE_BUILD_TYPE MATCHES DEBUG)
