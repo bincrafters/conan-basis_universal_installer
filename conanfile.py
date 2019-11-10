@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from conans import ConanFile, CMake, tools
 import os
 
@@ -11,7 +9,6 @@ class BasisUnivesalConan(ConanFile):
     topics = ("conan", "basis_universal", "installer", "binomialllc", "gpu", "texture-codec")
     url = "https://github.com/bincrafters/conan-basis_universal"
     homepage = "https://github.com/BinomialLLC/basis_universal"
-    author = "Bincrafters <bincrafters@gmail.com>"
     license = "Apache-2.0"
     exports = ["LICENSE.md"]
     exports_sources = ["CMakeLists.txt", "0001-build.patch"]
