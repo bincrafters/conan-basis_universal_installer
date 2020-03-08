@@ -73,11 +73,13 @@ jobs:
           echo "::set-env name=CONAN_${{ matrix.config.compiler }}_VERSIONS::${{ matrix.config.version }}"
           echo "export CONAN_${{ matrix.config.compiler }}_VERSIONS=${{ matrix.config.version }}"
           compiler="${{ matrix.config.compiler }}"
-          compiler_lower="${compiler,,}"
           version="${{ matrix.config.version }}"
           docker_image="${{ matrix.config.dockerImage }}"
-          if [[ "${docker_image}" == "" ]]; then docker_image="conanio/${compiler_lower}${version}"; fi
           if [[ "${compiler}" == "GCC" ]] || [[ "${compiler}" == "CLANG" ]]; then
+            if [[ "${docker_image}" == "" ]]; then
+              compiler_lower="${compiler,,}"
+              docker_image="conanio/${compiler_lower}${version}"
+            fi
             echo "::set-env name=CONAN_DOCKER_IMAGE::${docker_image}"
             echo "export CONAN_DOCKER_IMAGE=${docker_image}"
           fi
