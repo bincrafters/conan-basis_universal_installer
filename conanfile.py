@@ -10,7 +10,6 @@ class BasisUnivesalConan(ConanFile):
     url = "https://github.com/bincrafters/conan-basis_universal"
     homepage = "https://github.com/BinomialLLC/basis_universal"
     license = "Apache-2.0"
-    exports = ["LICENSE.md"]
     exports_sources = ["CMakeLists.txt", "0001-build.patch"]
     generators = "cmake"
     settings = "os_build", "arch_build", "compiler"
